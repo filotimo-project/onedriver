@@ -1,8 +1,6 @@
-[![Run tests](https://github.com/jstaf/onedriver/workflows/Run%20tests/badge.svg)](https://github.com/jstaf/onedriver/actions?query=workflow%3A%22Run+tests%22)
-[![Coverage Status](https://coveralls.io/repos/github/jstaf/onedriver/badge.svg?branch=master)](https://coveralls.io/github/jstaf/onedriver?branch=master)
-[![Copr build status](https://copr.fedorainfracloud.org/coprs/jstaf/onedriver/package/onedriver/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/jstaf/onedriver/package/onedriver/)
-
 # onedriver
+
+https://build.opensuse.org/package/show/home:tduck:filotimolinux/onedriver
 
 **onedriver is a native Linux filesystem for Microsoft OneDrive.**
 
@@ -77,75 +75,9 @@ other OneDrive clients:
   access them? onedriver is licensed under the GPLv3, which means you will
   _always_ have access to use onedriver to access your files on OneDrive.
 
-## Quick start
-
-### Fedora/CentOS/RHEL
-
-Users on Fedora/CentOS/RHEL systems are recommended to install onedriver from
-[COPR](https://copr.fedorainfracloud.org/coprs/jstaf/onedriver/). This will
-install the latest version of onedriver through your package manager and ensure
-it stays up-to-date with bugfixes and new features.
-
-```bash
-sudo dnf copr enable jstaf/onedriver
-sudo dnf install onedriver
-```
-
-### OpenSUSE
-
-OpenSUSE users need to add the COPR repo either for Leap or Tumbleweed
-
-```bash
-# Leap 15.4
-sudo zypper addrepo -g -r https://copr.fedorainfracloud.org/coprs/jstaf/onedriver/repo/opensuse-leap-15.4/jstaf-onedriver-opensuse-leap-15.4.repo onedriver
-sudo zypper --gpg-auto-import-keys refresh
-sudo zypper install onedriver
-
-# Tumbleweed
-sudo zypper addrepo -g -r https://copr.fedorainfracloud.org/coprs/jstaf/onedriver/repo/opensuse-tumbleweed/jstaf-onedriver-opensuse-tumbleweed.repo onedriver
-sudo zypper --gpg-auto-import-keys refresh
-sudo zypper install onedriver
-```
-
-### Ubuntu/Pop!\_OS/Debian
-
-Ubuntu/Pop!\_OS/Debian users can install onedriver from the
-[OpenSUSE Build Service](https://software.opensuse.org/download.html?project=home%3Ajstaf&package=onedriver)
-(despite the name, OBS also does a nice job of building packages for Debian).
-Like the COPR install, this will enable you to install onedriver through your
-package manager and install updates as they become available. If you previously
-installed onedriver via PPA, you can purge the old PPA from your system via:
-`sudo add-apt-repository --remove ppa:jstaf/onedriver`
-
-### Arch/Manjaro/EndeavourOS
-
-Arch/Manjaro/EndeavourOS users can install onedriver from the
-[AUR](https://aur.archlinux.org/packages/onedriver/).
-
-Post-installation, you can start onedriver either via the `onedriver-launcher`
-desktop app, or via the command line: `onedriver /path/to/mount/onedrive/at/`.
-
-### Gentoo
-
-Gentoo users can install onedriver from
-[this ebuild overlay](https://github.com/foopsss/gentoo-overlay) provided by a user. If
-you don't want to add user-hosted overlays to your system you may copy the
-ebuild for the latest version to a local overlay, which can be created by
-following the instructions available in the
-[Gentoo Wiki](https://wiki.gentoo.org/wiki/Creating_an_ebuild_repository).
-
-Make sure to carefully review the ebuild for the package before installing it
-
-### NixOS/NixPkgs
-
-NixOS and Nix users can install onedriver from
-[the unstable channel](https://search.nixos.org/packages?channel=unstable&query=onedriver)
-either by adding the package to their system's configuration (if they are using
-NixOS) or by installing it manually via `nix-env -iA unstable.onedriver`.
-
 ## Multiple drives and starting OneDrive on login via systemd
 
-**Note:** You can also set this up through the GUI via the `onedriver-launcher`
+**Note:** You can set this up through the GUI via the `onedriver-launcher`
 desktop app installed via rpm/deb/`make install`. You can skip this section if
 you're using the GUI. It's honestly easier.
 
