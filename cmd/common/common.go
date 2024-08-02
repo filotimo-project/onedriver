@@ -1,4 +1,4 @@
-// common functions used by both binaries
+// Package common common functions used by both binaries
 package common
 
 import (

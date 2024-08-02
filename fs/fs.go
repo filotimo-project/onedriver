@@ -134,7 +134,7 @@ func (f *Filesystem) makeAttr(i *Inode) fuse.Attr {
 	}
 }
 
-// Statfs returns information about the filesystem. Mainly useful for checking
+// StatFs returns information about the filesystem. Mainly useful for checking
 // quotas and storage limits.
 func (f *Filesystem) StatFs(cancel <-chan struct{}, in *fuse.InHeader, out *fuse.StatfsOut) fuse.Status {
 	ctx := log.With().Str("op", "StatFs").Logger()
@@ -221,7 +221,7 @@ func (f *Filesystem) Rmdir(cancel <-chan struct{}, in *fuse.InHeader, name strin
 	return f.Unlink(cancel, in, name)
 }
 
-// ReadDir provides a list of all the entries in the directory
+// OpenDir provides a list of all the entries in the directory
 func (f *Filesystem) OpenDir(cancel <-chan struct{}, in *fuse.OpenIn, out *fuse.OpenOut) fuse.Status {
 	id := f.TranslateID(in.NodeId)
 	dir := f.GetID(id)
@@ -725,7 +725,7 @@ func (f *Filesystem) Flush(cancel <-chan struct{}, in *fuse.FlushIn) fuse.Status
 	return 0
 }
 
-// Getattr returns a the Inode as a UNIX stat. Holds the read mutex for all of
+// GetAttr returns a the Inode as a UNIX stat. Holds the read mutex for all of
 // the "metadata fetch" operations.
 func (f *Filesystem) GetAttr(cancel <-chan struct{}, in *fuse.GetAttrIn, out *fuse.AttrOut) fuse.Status {
 	id := f.TranslateID(in.NodeId)
@@ -745,7 +745,7 @@ func (f *Filesystem) GetAttr(cancel <-chan struct{}, in *fuse.GetAttrIn, out *fu
 	return fuse.OK
 }
 
-// Setattr is the workhorse for setting filesystem attributes. Does the work of
+// SetAttr is the workhorse for setting filesystem attributes. Does the work of
 // operations like utimens, chmod, chown (not implemented, FUSE is single-user),
 // and truncate.
 func (f *Filesystem) SetAttr(cancel <-chan struct{}, in *fuse.SetAttrIn, out *fuse.AttrOut) fuse.Status {

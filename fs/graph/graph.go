@@ -29,7 +29,7 @@ type graphError struct {
 	} `json:"error"`
 }
 
-// This is an additional header that can be specified to Request
+// Header is an additional header that can be specified to Request
 type Header struct {
 	key, value string
 }

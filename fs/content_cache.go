@@ -34,7 +34,7 @@ func (l *LoopbackCache) Get(id string) []byte {
 	return content
 }
 
-// InsertContent writes file content to disk in a single bulk insert.
+// Insert InsertContent writes file content to disk in a single bulk insert.
 func (l *LoopbackCache) Insert(id string, content []byte) error {
 	return ioutil.WriteFile(l.contentPath(id), content, 0600)
 }
