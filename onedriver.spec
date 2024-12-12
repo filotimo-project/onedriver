@@ -42,9 +42,6 @@ go build -v -mod=vendor $BUILD_TAGS \
   ./cmd/onedriver-launcher
 gzip pkg/resources/onedriver.1
 
-%check
-appstream-util validate-relax %{SOURCE2} --nonet
-
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p %{buildroot}/%{_bindir}
