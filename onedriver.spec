@@ -1,7 +1,7 @@
 %define commit 9f377d56b5944e99a184e69904555a991e38f3c5
 
 Name:          onedriver
-Version:       0.14.3
+Version:       0.14.4
 Release:       1%{?dist}
 Summary:       A native Linux filesystem for Microsoft OneDrive.
 
@@ -75,7 +75,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 %attr(644, root, root) /usr/share/man/man1/%{name}.1.gz
 
 %changelog
-* Thu Dec 12 2024 Thomas Duckworth <tduck973564@gmail.com> 0.14.3-1
+* Thu Dec 12 2024 Thomas Duckworth <tduck973564@gmail.com> 0.14.4-1
 - new package built with tito
 
 * Wed Oct 18 2023 Jeff Stafford <jeff.stafford@protonmail.com> - 0.14.1
