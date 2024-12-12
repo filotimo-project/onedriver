@@ -1,4 +1,4 @@
-%define commit 15ddb0aef197515b8fdf8cc3ac1401c1fb48b72a
+%define commit 9f377d56b5944e99a184e69904555a991e38f3c5
 
 Name:          onedriver
 Version:       0.14.3
