@@ -61,7 +61,6 @@ cp pkg/resources/%{name}.svg %{buildroot}/usr/share/icons/%{name}
 cp pkg/resources/%{name}-launcher.desktop %{buildroot}/usr/share/applications
 cp pkg/resources/%{name}@.service %{buildroot}/usr/lib/systemd/user
 cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
-cp %{SOURCE2} %{buildroot}/%{_metainfodir}
 
 # fix for el8 build in mock
 %define _empty_manifest_terminate_build 0
