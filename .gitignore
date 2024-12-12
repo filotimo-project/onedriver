@@ -31,7 +31,7 @@ onedriver-launcher
 onedriver-*/
 !cmd/onedriver-launcher
 !cmd/onedriver
-vendor/
+#vendor/
 
 # rpm build stuff
 *.rpm

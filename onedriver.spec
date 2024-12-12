@@ -1,11 +1,13 @@
+%define commit 15ddb0aef197515b8fdf8cc3ac1401c1fb48b72a
+
 Name:          onedriver
-Version:       0.14.1
-Release:       1%{?dist}
-Summary:       A native Linux filesystem for Microsoft Onedrive
+Version:       0.14.3
+Release:       2%{?dist}
+Summary:       A native Linux filesystem for Microsoft OneDrive.
 
 License:       GPL-3.0-or-later
-URL:           https://github.com/jstaf/onedriver
-Source0:       https://github.com/jstaf/onedriver/archive/refs/tags/v%{version}.tar.gz
+URL:           https://github.com/filotimo-project/onedriver
+Source0:       %{name}-%{version}.tar.gz
 
 %if 0%{?suse_version}
 BuildRequires: go >= 1.17
@@ -16,6 +18,7 @@ BuildRequires: git
 BuildRequires: gcc
 BuildRequires: pkg-config
 BuildRequires: webkit2gtk3-devel
+BuildRequires: libappstream-glib
 Requires: fuse3
 
 %description
@@ -32,12 +35,15 @@ if rpm -q pango | grep -q 1.42; then
   BUILD_TAGS=-tags=pango_1_42,gtk_3_22
 fi
 go build -v -mod=vendor $BUILD_TAGS \
-  -ldflags="-X github.com/jstaf/onedriver/cmd/common.commit=$(cat .commit)" \
+  -ldflags="-X github.com/filotimo-project/onedriver/cmd/common.commit=%{commit}" \
   ./cmd/onedriver
 go build -v -mod=vendor $BUILD_TAGS \
-  -ldflags="-X github.com/jstaf/onedriver/cmd/common.commit=$(cat .commit)" \
+  -ldflags="-X github.com/filotimo-project/onedriver/cmd/common.commit=%{commit}" \
   ./cmd/onedriver-launcher
 gzip pkg/resources/onedriver.1
+
+%check
+appstream-util validate-relax %{SOURCE2} --nonet
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -46,6 +52,7 @@ mkdir -p %{buildroot}/usr/share/icons/%{name}
 mkdir -p %{buildroot}/usr/share/applications
 mkdir -p %{buildroot}/usr/lib/systemd/user
 mkdir -p %{buildroot}/usr/share/man/man1
+mkdir -p %{buildroot}/%{_metainfodir}
 cp %{name} %{buildroot}/%{_bindir}
 cp %{name}-launcher %{buildroot}/%{_bindir}
 cp pkg/resources/%{name}.png %{buildroot}/usr/share/icons/%{name}
@@ -54,6 +61,7 @@ cp pkg/resources/%{name}.svg %{buildroot}/usr/share/icons/%{name}
 cp pkg/resources/%{name}-launcher.desktop %{buildroot}/usr/share/applications
 cp pkg/resources/%{name}@.service %{buildroot}/usr/lib/systemd/user
 cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
+cp %{SOURCE2} %{buildroot}/%{_metainfodir}
 
 # fix for el8 build in mock
 %define _empty_manifest_terminate_build 0
@@ -69,6 +77,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 %attr(644, root, root) /usr/lib/systemd/user/%{name}@.service
 %doc
 %attr(644, root, root) /usr/share/man/man1/%{name}.1.gz
+%{_metainfodir}/onedriver.appdata.xml
 
 %changelog
 * Wed Oct 18 2023 Jeff Stafford <jeff.stafford@protonmail.com> - 0.14.1
@@ -81,7 +90,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - onedriver no longer allows you to create filenames that are not allowed by OneDrive.
 
 * Tue Nov 1 2022 Jeff Stafford <jeff.stafford@protonmail.com> - 0.13.0
-- The GUI has been rewritten in golang for ease of maintenance and code sharing with 
+- The GUI has been rewritten in golang for ease of maintenance and code sharing with
   the rest of the onedriver application.
 - onedriver can now be configured with a config file at "~/.config/onedriver/config.yml".
 - There is now a configuration menu in the GUI. You can now set a couple configuration
@@ -89,7 +98,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - The onedriver CLI now stores its cache in the same path that the GUI expects,
   meaning that invoking the onedriver filesystem directly and via the GUI will share the
   cache as long as the mountpoint is the same.
-- onedriver now prefers multipart downloads for files >10MB instead of a single massive 
+- onedriver now prefers multipart downloads for files >10MB instead of a single massive
   GET request. This should significantly improve reliability when working with large files.
 
 * Tue Nov 2 2021 Jeff Stafford <jeff.stafford@protonmail.com> - 0.12.0
@@ -99,11 +108,11 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
   upload files on success. This significantly improves upload speed.
 - Fixes a crash when writes begin at an offset beyond maximum file length. This fixes a
   bug where running ld inside the filesystem would cause it to crash.
-- Switch to using zerolog instead of logrus for logging. Though zerolog is supposedly 
+- Switch to using zerolog instead of logrus for logging. Though zerolog is supposedly
   faster, the real reason to switch is that it's much easier for me (and hopefully you)
   to read! Also, pretty colors!
-- onedriver now gives you the option to choose to authenticate via the terminal when 
-  authenticating via the new --no-browser option (this is the functionality from the 
+- onedriver now gives you the option to choose to authenticate via the terminal when
+  authenticating via the new --no-browser option (this is the functionality from the
   old "headless" build).
 - Add a workaround for the TLS cert authentication issue from
   https://bugzilla.redhat.com/show_bug.cgi?id=2024296
@@ -118,8 +127,8 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 * Sat Jul 3 2021 Jeff Stafford <jeff.stafford@protonmail.com> - 0.11.0
 - Now includes a snazzy GUI for managing your mountpoints. No terminal skills are required
   to use onedriver now.
-- The upload logic has been rewritten to no longer use 0-byte files as placeholders in 
-  any scenario. This fixes a race condition where software like LibreOffice, KeepassXC, or 
+- The upload logic has been rewritten to no longer use 0-byte files as placeholders in
+  any scenario. This fixes a race condition where software like LibreOffice, KeepassXC, or
   Krita could generate a 0-byte file instead of the intended file when the file was 4MB or
   larger.
 - onedriver now uses etags AND modification times when syncing server-side changes back to
@@ -135,9 +144,9 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - The onedriver systemd service now restarts itself in the event of a crash -
   thanks dipunm!
 - Fix a rare crash while syncing server-side changes missing checksums.
-- Fix a race-condition that caused uploaded files to occasionally be replaced by a 0-byte 
+- Fix a race-condition that caused uploaded files to occasionally be replaced by a 0-byte
   copy (most commonly caused by the way LibreOffice saves files).
-- Cap number of uploads that can be in-progress at any time to 5. This makes uploading 
+- Cap number of uploads that can be in-progress at any time to 5. This makes uploading
   uploading directories with lots of files appear to go a bit faster.
 - The account name is now displayed in the title bar if you need to reauthenticate to
   OneDrive (makes it easier to know which credentials to use when prompted).
