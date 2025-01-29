@@ -1,7 +1,7 @@
 %define commit 9f377d56b5944e99a184e69904555a991e38f3c5
 
 Name:          onedriver
-Version:       0.14.4
+Version:       0.14.5
 Release:       1%{?dist}
 Summary:       A native Linux filesystem for Microsoft OneDrive.
 
