@@ -75,6 +75,11 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 %attr(644, root, root) /usr/share/man/man1/%{name}.1.gz
 
 %changelog
+* Wed Jan 29 2025 Thomas Duckworth <tduck973564@gmail.com> 0.14.5-1
+- Update onedriver.spec (tduck973564@gmail.com)
+- Update onedriver.spec (tduck973564@gmail.com)
+- Work around some sort of NVIDIA bug (tduck973564@gmail.com)
+
 * Thu Dec 12 2024 Thomas Duckworth <tduck973564@gmail.com> 0.14.4-1
 - new package built with tito
 
