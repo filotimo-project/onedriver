@@ -2,6 +2,8 @@
 
 https://build.opensuse.org/package/show/home:tduck:filotimolinux/onedriver
 
+# Moved to kio-onedrive in filotimo
+
 **onedriver is a native Linux filesystem for Microsoft OneDrive.**
 
 onedriver is a network filesystem that gives your computer direct access to your
